@@ -58,23 +58,35 @@ const App = () => {
   const [result, setResult] = React.useState(null)
   const [durationInBed, setDurationInBed] = React.useState(null)
   const [durationAsleep, setDurationAsleep] = React.useState(null)
+  const [loading, setLoading] = React.useState(false)
 
   const handleSubmit = e => {
     e.preventDefault();
     console.log(e)
 
-    // set loading
-    // calculate result
-    // set result value
-    // finish loading
+    setLoading(true)
+    setResult(false)
+    setTimeout(() => {
+      // calculate result
+      const result = "API call / math"
+      // calculate score
+      // make API call
+      // handle success
+      // handle failure
+      setResult(result)
+      setLoading(false)
+    }, 2000);
   }
 
-  const handleChange = e => {
-    setValue(e.target.value)
+  // probably can simplify this by making a component that is a SelectWithLabel or similar
+  const handleUpdateDurationInBed = e => {
+    setDurationInBed(e.target.value)
+    console.log(e)
   }
 
-  const setValue = value => {
-
+  const handleUpdateDurationAsleep = e => {
+    setDurationAsleep(e.target.value)
+    console.log(e)
   }
 
   return (
@@ -82,16 +94,18 @@ const App = () => {
       <header>Sleepio</header>
       <form onSubmit={e => handleSubmit(e)}>
         <label>Duration in bed</label>
-        <select>
+        <select onChange={e => handleUpdateDurationInBed(e)}>
           {allHalfHourIntervals.map(option => <option value={option}>{option}</option>)}
         </select>
         <label>Duration asleep</label>
-        <select>
+        <select onChange={e => handleUpdateDurationAsleep(e)}>
           {allHalfHourIntervals.map(option => <option value={option}>{option}</option>)}
         </select>
         {/* TODO: Does this need to be a button? */}
+        {/* Please use something that isn't two negative booleans with an AND boolean */}
         <input disabled={!durationInBed || !durationAsleep} type="submit" value="Calculate" />
       </form>
+      {loading && <div>Loading...</div>}
       {result && <div>Result: {result}</div>}
     </div>
   );
