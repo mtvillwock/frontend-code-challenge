@@ -1,3 +1,4 @@
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
@@ -54,9 +55,26 @@ const allHalfHourIntervals = [
 ]
 
 const App = () => {
+  const [result, setResult] = React.useState(null)
+  const [durationInBed, setDurationInBed] = React.useState(null)
+  const [durationAsleep, setDurationAsleep] = React.useState(null)
 
   const handleSubmit = e => {
+    e.preventDefault();
     console.log(e)
+
+    // set loading
+    // calculate result
+    // set result value
+    // finish loading
+  }
+
+  const handleChange = e => {
+    setValue(e.target.value)
+  }
+
+  const setValue = value => {
+
   }
 
   return (
@@ -72,8 +90,9 @@ const App = () => {
           {allHalfHourIntervals.map(option => <option value={option}>{option}</option>)}
         </select>
         {/* TODO: Does this need to be a button? */}
-        <input type="submit" value="Calculate" />
+        <input disabled={!durationInBed || !durationAsleep} type="submit" value="Calculate" />
       </form>
+      {result && <div>Result: {result}</div>}
     </div>
   );
 }
