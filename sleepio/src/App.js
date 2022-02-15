@@ -97,11 +97,11 @@ const App = () => {
       <form onSubmit={e => handleSubmit(e)}>
         <label>Duration in bed</label>
         <select onChange={e => handleUpdateDurationInBed(e)}>
-          {allHalfHourIntervals.map(option => <option value={option}>{option}</option>)}
+          {allHalfHourIntervals.map(option => <option key={`in-bed-${option}`} value={option}>{option}</option>)}
         </select>
         <label>Duration asleep</label>
         <select onChange={e => handleUpdateDurationAsleep(e)}>
-          {allHalfHourIntervals.map(option => <option value={option}>{option}</option>)}
+          {allHalfHourIntervals.map(option => <option key={`asleep-${option}`} value={option}>{option}</option>)}
         </select>
         {/* TODO: Does this need to be a button? */}
         {/* Please use something that isn't two negative booleans with an AND boolean */}
