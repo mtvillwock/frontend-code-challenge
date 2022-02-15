@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import { timeToNumber, numberToTime } from './utils'
 // TODO: fetch this from server or import from separate file
 const allHalfHourIntervals = [
   "0:00",
@@ -67,26 +67,28 @@ const App = () => {
     setLoading(true)
     setResult(false)
     setTimeout(() => {
-      // calculate result
-      const result = "API call / math"
       // calculate score
+      console.log(durationAsleep, durationInBed)
+      const result = Math.round((100 * durationAsleep / durationInBed))
       // make API call
       // handle success
       // handle failure
       setResult(result)
       setLoading(false)
-    }, 2000);
+    }, 1000);
   }
 
   // probably can simplify this by making a component that is a SelectWithLabel or similar
   const handleUpdateDurationInBed = e => {
-    setDurationInBed(e.target.value)
-    console.log(e)
+    let number = timeToNumber(e.target.value)
+    console.log('in bed: ', number)
+    setDurationInBed(number)
   }
 
   const handleUpdateDurationAsleep = e => {
-    setDurationAsleep(e.target.value)
-    console.log(e)
+    let number = timeToNumber(e.target.value)
+    console.log('asleep: ', number)
+    setDurationAsleep(number)
   }
 
   return (
