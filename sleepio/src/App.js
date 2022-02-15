@@ -53,6 +53,12 @@ const allHalfHourIntervals = [
   "23:00",
   "23:30"
 ]
+const allNumberofMinutes = allHalfHourIntervals.map(interval => timeToNumber(interval))
+let entries = {}
+allNumberofMinutes.forEach((num, index) => {
+  entries[num] = allHalfHourIntervals[index]
+})
+console.log(entries)
 
 const App = () => {
   const [result, setResult] = React.useState(null)
