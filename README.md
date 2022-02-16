@@ -10,8 +10,8 @@ This will install the app's dependencies.
 ### Run `npm start`
 This starts the development server (React app). You can view the app at [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Run `npm start server.js`
-This will start the barebones Express server being used as a mock backend.
+### Run `node server.js`
+This starts the barebones Express server being used as a mock backend.
 
 ### `npm test`
 
