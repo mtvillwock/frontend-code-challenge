@@ -17,5 +17,7 @@ This starts the barebones Express server being used as a mock backend.
 
 This starts the test runner in the interactive watch mode.
 
-## Notes
-TBD
+## Improvements For Later
+- Convert to TypeScript instead of using PropTypes
+- Simplify form state logic from [booleans to enums](https://kyleshevlin.com/enumerate-dont-booleanate)?
+- Integrate with Python backend
