@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-In the project directory you can:
+In the `src` directory you can:
 
 ### Run `npm install`
 This will install the app's dependencies.
