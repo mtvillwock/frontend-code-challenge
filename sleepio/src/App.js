@@ -71,11 +71,10 @@ const App = () => {
     setLoading(true)
     setResult(false)
 
-    // Does this need to handle if asleep is less than in bed?
+    // TODO: Does this need to handle if asleep is less than in bed?
     const result = Math.round((100 * durationAsleep / durationInBed))
     const data = JSON.stringify({ score: result })
-    console.log(data)
-    // make API call
+
     const response = await fetch('http://localhost:5000/api/sleep_data', {
       method: 'POST',
       headers: {
@@ -85,11 +84,9 @@ const App = () => {
       body: data,
     })
 
-    console.log("Server response: ", response)
-
     if (response.ok) {
       setResult(result)
-    } else if (response.badRequest) {
+    } else if (!response.ok) {
       setResult('Request failed, please try again')
     }
     setLoading(false)
@@ -98,13 +95,11 @@ const App = () => {
   // probably can simplify this by making a component that is a SelectWithLabel or similar
   const handleUpdateDurationInBed = e => {
     let number = timeToNumber(e.target.value)
-    console.log('in bed: ', number)
     setDurationInBed(number)
   }
 
   const handleUpdateDurationAsleep = e => {
     let number = timeToNumber(e.target.value)
-    console.log('asleep: ', number)
     setDurationAsleep(number)
   }
 
