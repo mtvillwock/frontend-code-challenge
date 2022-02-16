@@ -3,6 +3,6 @@ import App from './App';
 
 test('renders learn react link', () => {
   render(<App />);
-  const headerElement = screen.getByText(/Sleepio/i);
+  const headerElement = screen.getByText(/Sleep Calculator/i);
   expect(headerElement).toBeInTheDocument();
 });

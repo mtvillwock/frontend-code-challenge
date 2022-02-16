@@ -58,7 +58,6 @@ let entries = {}
 allNumberofMinutes.forEach((num, index) => {
   entries[num] = allHalfHourIntervals[index]
 })
-console.log(entries)
 
 const App = () => {
   const [result, setResult] = React.useState(null)
@@ -66,22 +65,34 @@ const App = () => {
   const [durationAsleep, setDurationAsleep] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log(e)
 
     setLoading(true)
     setResult(false)
-    setTimeout(() => {
-      // calculate score
-      console.log(durationAsleep, durationInBed)
-      const result = Math.round((100 * durationAsleep / durationInBed))
-      // make API call
-      // handle success
-      // handle failure
+
+    // Does this need to handle if asleep is less than in bed?
+    const result = Math.round((100 * durationAsleep / durationInBed))
+    const data = JSON.stringify({ score: result })
+    console.log(data)
+    // make API call
+    const response = await fetch('http://localhost:5000/api/sleep_data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+      body: data,
+    })
+
+    console.log("Server response: ", response)
+
+    if (response.ok) {
       setResult(result)
-      setLoading(false)
-    }, 1000);
+    } else if (response.badRequest) {
+      setResult('Request failed, please try again')
+    }
+    setLoading(false)
   }
 
   // probably can simplify this by making a component that is a SelectWithLabel or similar
@@ -98,9 +109,12 @@ const App = () => {
   }
 
   return (
-    <div className="App">
-      <header>Sleepio</header>
-      <form onSubmit={e => handleSubmit(e)}>
+    <div className="App" style={{ maxWidth: '300px' }}>
+      <h1>Sleep Calculator</h1>
+      <form
+        style={{ display: 'flex', flexDirection: 'column', alignContent: 'space-between', marginBottom: '20px', alignItems: 'center' }}
+        onSubmit={e => handleSubmit(e)}
+      >
         <label>Duration in bed</label>
         <select onChange={e => handleUpdateDurationInBed(e)}>
           {allHalfHourIntervals.map(option => <option key={`in-bed-${option}`} value={option}>{option}</option>)}
@@ -109,8 +123,6 @@ const App = () => {
         <select onChange={e => handleUpdateDurationAsleep(e)}>
           {allHalfHourIntervals.map(option => <option key={`asleep-${option}`} value={option}>{option}</option>)}
         </select>
-        {/* TODO: Does this need to be a button? */}
-        {/* Please use something that isn't two negative booleans with an AND boolean */}
         <input disabled={!durationInBed || !durationAsleep} type="submit" value="Calculate" />
       </form>
       {loading && <div>Loading...</div>}
