@@ -16,7 +16,7 @@ const Form = () => {
     setResult(false)
 
     // TODO: Does this need to handle if asleep is less than in bed?
-    const result = Math.round((100 * durationAsleep / durationInBed))
+    const result = 100 * durationAsleep / durationInBed
     const data = JSON.stringify({ score: result })
 
     const response = await fetch('http://localhost:5000/api/sleep_data', {
